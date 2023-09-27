@@ -14,7 +14,7 @@
 !**/Makefile
 
 # Allow README files in all directories
-!**/README*
+!**/README.md*
 
 # Allow .gitignore
 !.gitignore
