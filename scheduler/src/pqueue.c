@@ -1,0 +1,167 @@
+
+
+#include <stdlib.h>   		/*malloc,  size_t	*/
+#include <assert.h>  		/*	assert			*/
+#include "aux_funcs.h"      /* is_match_func_t 	*/
+
+#include "vector.h"
+#include "heap.h" 		/* heap_t 		*/
+
+struct p_queue
+{
+	heap_t *queue;
+};
+
+
+typedef struct p_queue p_queue_t;
+
+/******************************************************************************
+Description:     	Performs sort function for sorting by priority.
+Return value:    	Returns 0 if new_data == data, Positive number if 
+                    data > new_data, Negative number if data < new_data
+******************************************************************************/
+typedef int (*p_sort_func_t) (const void *new_data, const void *data);
+
+
+/*******************************************************************************
+Description:     	Creates an empty p_queue sorted by 'priority_func'.
+Return value:    	Pointer to p_queue in case of success, otherwise NULL.
+Time Complexity: 	O(1). 
+Note:            	Should call 'PQueueDestroy()' at end of use.
+*******************************************************************************/
+p_queue_t *PQueueCreate(p_sort_func_t priority_func)
+{
+	 p_queue_t *pq = (p_queue_t*)malloc(sizeof(p_queue_t));
+	 
+	 if(NULL == pq)
+	 {
+	 	return NULL;
+	 }
+	 
+	 pq->queue = HeapCreate(priority_func);
+
+	 return pq;
+
+}
+
+
+/*******************************************************************************
+Description:     	Deletes a p_queue pointed by 'p_queue' from memory.
+Time Complexity: 	O(n) 
+Notes:           	Undefined behaviour if p_queue is NULL.
+*******************************************************************************/
+void PQueueDestroy(p_queue_t *p_queue)
+{
+	 assert(p_queue);
+	
+	 HeapDestroy(p_queue->queue);
+	 
+	 free(p_queue);
+	 p_queue = NULL;
+	 
+}
+
+
+/*******************************************************************************
+Description:     	Add 'data' to p_queue pointed by 'p_queue' according to 
+					priority provided by user.
+Return value:    	0 for success, 1 for fail.         
+Time Complexity: 	O(n)
+Notes:              Undefined behaviour if p_queue is invalid pointer.
+*******************************************************************************/
+int PQueueEnqueue(p_queue_t *p_queue, void *data)
+{
+	assert(p_queue);
+	
+	return HeapPush(p_queue->queue,data);
+	
+}
+
+
+/*******************************************************************************
+Description:       Deletes the first element in 'p_queue'.
+Time Complexity:   O(1)
+Notes:             Undefined behaviour if p_queue is invalid pointer.          
+*******************************************************************************/
+void PQueueDequeue(p_queue_t *p_queue)
+{
+	assert(p_queue);
+	HeapPop(p_queue->queue);
+}
+
+/*******************************************************************************
+Description:   		Returns data of the first element in 'p_queue'. 
+Time complexity:  	O(1)
+Note: 				Undefined behaviour if p_queue is invalid pointer.
+*******************************************************************************/
+void *PQueuePeek(const p_queue_t *p_queue)
+{
+
+	assert(p_queue);
+
+	return HeapPeek(p_queue->queue);
+}
+
+
+/*******************************************************************************
+Description: 		Checks if 'p_queue' is empty.
+Return value:   	1 for true, 0 for false.
+Time complexity:  	O(1)
+Note: 				Undefined behaviour if p_queue is invalid pointer.
+*******************************************************************************/
+int PQueueIsEmpty(const p_queue_t *p_queue)
+{
+	
+	assert(p_queue);
+	
+	return HeapIsEmpty(p_queue->queue);
+	
+}
+
+
+/*******************************************************************************
+Description:     	Returns number of elements in 'p_queue'
+Time Complexity: 	O(n)
+Notes:			 	Undefined behaviour if p_queue is invalid pointer
+*******************************************************************************/
+size_t PQueueSize(const p_queue_t *p_queue)
+{
+	assert(p_queue);
+	
+	return HeapSize(p_queue->queue);
+
+}
+
+/*******************************************************************************
+Description:  	  	Clears all elements in a priority queue pointed by 'p_queue'
+					from memory. 
+Time complexity:  	O(n)
+Notes:            	Undefined behaviour if 'p_queue' is invalid pointers.
+*******************************************************************************/
+void PQueueClear(p_queue_t *p_queue)
+{
+	
+	assert(p_queue);
+	
+	while(!PQueueIsEmpty(p_queue))
+	{
+		PQueueDequeue(p_queue);
+	}
+}
+
+
+/*******************************************************************************
+Description:  	  	Erase the first element with 'data' found by 'match_func'
+                    from a priority queue pointed by 'p_queue' from memory.
+Return value 		0 for success otherwise 1.
+Time complexity:  	O(n)
+Notes:            	Undefined behaviour if 'p_queue' is invalid pointer.
+*******************************************************************************/
+int PQueueErase(p_queue_t *p_queue, is_match_func_t match_func, void *data)
+{
+	assert(p_queue);
+	
+	return HeapRemove(p_queue->queue, match_func, data);
+}
+
+
