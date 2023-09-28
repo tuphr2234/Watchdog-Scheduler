@@ -17,4 +17,4 @@ The Watchdog library (watchdog_lib.so) provides a simple way to create processes
         gcc -o my_program my_program.c -L. -l:bin/release/watchdog_lib.so
 
 
-- This Watchdog uses another module, Scheduler, that is also included in this repository.
+* This Watchdog uses another module, Scheduler, that is also included in this repository.
