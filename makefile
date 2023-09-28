@@ -29,7 +29,7 @@ WATCHDOG_OUT =watchdog
 
 # Default targets
 all: $(BIN_DIR)/$(SCHED_SO_NAME) $(BIN_DIR)/$(WD_SO_NAME) $(BIN_DIR)/$(WATCHDOG_OUT)
-	rm -f $(BIN_DIR)/$(SCHED_SO_NAME)
+#	rm -f $(BIN_DIR)/$(SCHED_SO_NAME)
 # Rule to build the shared object
 $(BIN_DIR)/$(SCHED_SO_NAME):$(SCHED_SRC_FILES)
 	$(CC) $(SCHED_CFLAGS) -shared -o $(BIN_DIR)/$(SCHED_SO_NAME) $(SCHED_SRC_FILES)

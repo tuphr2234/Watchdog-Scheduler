@@ -60,6 +60,7 @@ void InitSignalHandlers()
 int FinishWatchdogs(argus_t* argus)
 {
     int kill_stat = 0;
+    DEBUG_ONLY(printf("FinishWatchdogs%d\n", getpid()));
     
     do{
         kill_stat = kill(g_sending_pid,SIGUSR2);
@@ -86,7 +87,10 @@ void resuscitate(int is_usr_proc ,  char *argv[])
 
     if(is_usr_proc)/*user proccess (watchdog thread) reinitiate watchdog proccess*/
     {
-        cmd = "./watchdog";
+        cmd = "bin/release/watchdog";
+        #ifndef NDEBUG
+        cmd = "bin/debug/watchdog";
+        #endif 
         pid = fork();
     }
 
