@@ -1,8 +1,8 @@
 *
 .vscode
-!**/*.c
-!**/*.h
-!**/*.so
-!**/Makefile
-!**/README.md
+!*.c
+!*.h
+!*.so
+!Makefile
+!README.md
 !.gitignore
