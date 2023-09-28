@@ -1,6 +1,6 @@
 # Ignore all files and directories by default
 *
-
+.vscode
 # Allow C source files in all directories
 !**/*.c
 
