@@ -1,6 +1,6 @@
 # Ignore all files and directories by default
-/*
 *
+
 # Allow C source files in all directories
 !**/*.c
 
@@ -14,7 +14,7 @@
 !**/Makefile
 
 # Allow README files in all directories
-!**/README.md*
+!**/README.md
 
 # Allow .gitignore
 !.gitignore
