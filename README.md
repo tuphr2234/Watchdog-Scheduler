@@ -9,12 +9,12 @@ The Watchdog library is designed to help you create processes that are resilient
 The Watchdog library (watchdog_lib.so) provides a simple way to create processes that can recover from failures. To use the Watchdog library, follow these steps:
 
     1. Make sure you have the watchdog_lib.so shared object file and the watchdog
-       executable in bin/release or bin/debug.       
+       executable in bin/release or bin/debug, and an include dir for watchdog.h.       
 
     2. You should have the appropriate permissions to execute the watchdog executable.
 
     compilation example:
-        gcc -o my_program my_program.c -L. -l:bin/release/watchdog_lib.so
+        gcc -o my_program -Iinclude my_program.c -L. -l:bin/release/watchdog_lib.so
 
 
 * This Watchdog uses another module, Scheduler, that is also included in this repository.
