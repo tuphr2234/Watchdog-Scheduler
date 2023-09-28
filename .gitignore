@@ -1,21 +1,8 @@
-# Ignore all files and directories by default
 *
 .vscode
-# Allow C source files in all directories
 !**/*.c
-
-# Allow header files in all directories
 !**/*.h
-
-# Allow shared object files in all directories
 !**/*.so
-
-# Allow Makefile in all directories
 !**/Makefile
-
-# Allow README files in all directories
 !**/README.md
-
-# Allow .gitignore
 !.gitignore
-
